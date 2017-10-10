@@ -1,0 +1,33 @@
+{
+	"name": "longsheng",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest"
+	},
+	"dependencies": {
+		"ac-qrcode": "^1.0.1",
+		"antd-mobile": "^1.6.11",
+		"react": "16.0.0-alpha.12",
+		"react-native": "0.47.2",
+		"react-native-camera": "^0.10.0",
+		"react-native-dismiss-keyboard": "^1.0.0",
+		"react-native-splash-screen": "^3.0.0",
+		"react-native-svg-uri": "^1.2.0",
+		"react-native-wkwebview-reborn": "^1.8.0",
+		"react-navigation": "^1.0.0-beta.11"
+	},
+	"devDependencies": {
+		"babel-jest": "20.0.3",
+		"babel-plugin-import": "^1.6.0",
+		"babel-preset-react-native": "3.0.2",
+		"eslint": "^4.6.1",
+		"eslint-plugin-react": "^7.3.0",
+		"jest": "20.0.4",
+		"react-test-renderer": "16.0.0-alpha.12"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
+}
