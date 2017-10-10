@@ -69,7 +69,7 @@ class Login extends Component {
                             style={styles.accountTextInput}
                             underlineColorAndroid='transparent'
                             keyboardType='email-address'
-                            secureTextEntry
+                            secureTextEntry={true}
                             value = {this.state.pwdStr}
                             onChangeText = {(text) => {
                                 this.setState({pwdStr:text}); 

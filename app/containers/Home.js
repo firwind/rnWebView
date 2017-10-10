@@ -76,9 +76,9 @@ class home extends Component {
             <View style={styles.container}>
                <View style={styles.topcontainer}>
                 <View style={styles.navtopbar}>
-                  <TouchableOpacity onPress={()=>navigation.navigate('DrawerOpen', {name: '打开抽屉'})}>
+                <TouchableOpacity onPress={()=>navigation.navigate('DrawerOpen', {name: '打开抽屉'})} style={styles.header}>
                       <Image source={MineIcon} style={styles.mineIcon}/>
-                   </TouchableOpacity>
+                </TouchableOpacity>
                   <Text style={styles.title}>
                      水站管家
                   </Text>
@@ -117,7 +117,7 @@ class home extends Component {
                         return (
                             <TouchableOpacity
                                 onPress={() => this.itemClick(dataItem)}
-                                style={[styles.contentCenter,{marginTop:40}]}
+                                style={[styles.contentCenter]}
                             >
                                 <View style={styles.contentCenter}>
                                     <Image resizeMode='contain'
@@ -152,29 +152,30 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     topcontainer:{
-        flex:1.4,
+        flex:3,
         backgroundColor: '#D5002F',
-        justifyContent:'space-between',
+        justifyContent:'space-around',
     },
     midcontainer:{
       height:120,
       alignItems: 'center'
     },
     bottomtainer:{
-        flex:2,
-        marginTop:30,
+        paddingTop:20,
+        flex:4,
         justifyContent:'space-between',
     },
     navtopbar:{
         height:64,
         margin:20,
         flexDirection:'row',
-        justifyContent:'space-between',
+        justifyContent:'center',
         alignItems:'center'
     },
     title:{
         color:'white',
         fontSize: 18,
+        alignContent:'center',
     },
     mineIcon:{
         width: 30,
@@ -196,6 +197,11 @@ const styles = StyleSheet.create({
         width: 60,
         marginBottom: 10,
     },
+    header:{
+        position:'absolute',
+        left:0,
+        top:10
+    }
 });
 
 //make this component available to the app
