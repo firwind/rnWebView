@@ -13,6 +13,7 @@
 		"react-native": "0.47.2",
 		"react-native-camera": "^0.10.0",
 		"react-native-dismiss-keyboard": "^1.0.0",
+		"react-native-keyboard-manager": "^4.0.13-3",
 		"react-native-splash-screen": "^3.0.0",
 		"react-native-svg-uri": "^1.2.0",
 		"react-native-wkwebview-reborn": "^1.8.0",
