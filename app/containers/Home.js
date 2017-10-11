@@ -12,6 +12,8 @@ import Zu5 from '../images/zu5.png';
 import Zu6 from '../images/zu6.png';
 import Xinshou from '../images/xinshou1.png';
 import { Grid, Toast } from 'antd-mobile';
+import ManageStation from './ManageStattion';
+import MangeMember from './MangeMember';
 
 
 const apps = [
@@ -60,8 +62,15 @@ class home extends Component {
          navigation.navigate('ApplyCard', {name: '办理水卡'});
              break;
          case '在线充值':
+         
+         navigation.navigate('MangeMember', {name: '会员管理'});
+             break;
          case '水站管理':
+         navigation.navigate('ManageStation', {name: '水站管理'});
+             break;
          case '会员管理':
+         navigation.navigate('MangeMember', {name: '会员管理'});
+         break;
          case '经营分析':
          case '水站学堂':
          Toast.info('敬请期待!', 2, null, false);

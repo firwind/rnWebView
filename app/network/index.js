@@ -43,6 +43,9 @@ export async function postJSON(url, data, setting) {
     method: 'POST',
     body: JSON.stringify(data),
   });
+  console.log('====================================');
+  console.log('adfdfsdf');
+  console.log('====================================');
   return resp.json();
 }
 

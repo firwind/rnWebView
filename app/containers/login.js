@@ -16,7 +16,7 @@ import Logo from '../images/logo.png';
 import headicon from '../images/headicon.png';
 import passicon from '../images/passicon.png';
 import { Toast } from 'antd-mobile';
-
+import { getJSON, postJSON } from '../network';
 
 const { width, height } = Dimensions.get('window');
 
@@ -30,14 +30,41 @@ class Login extends Component {
            pwdStr: '',
         };
     }
+    async loginApps() {
+      const params = {
+        mobile:this.state.nameStr,
+        passWord:this.state.pwdStr
+      };
+      const url = 'socialLogin/login';
+       try {
+          const json = await postJSON(url,params);
+        //   this.props.changeProgress({ visible: false });
+          console.log('====================================');
+          console.log(`请求接口数据${JSON.stringify(json)}`);
+          console.log('====================================');
+
+        //   this.props.changeHomeApp(json);
+       } catch (error) {
+           
+        //    this.props.changeProgress(false);
+           console.log('====================================');
+           console.log(`请求接口失败${error}`);
+           console.log('====================================');
+       }
+    }
     mPress = () =>{
         if (this.state.nameStr.length>0&&this.state.pwdStr.length>0) {
-            const { navigation } = this.props;
-            navigation.navigate('Home', {name: ''});
+             const { navigation } = this.props;
+             navigation.navigate('Home', {name: ''});
+            this.loginApps();
            
         }else{
             Toast.info('用户名和密码都不能为空!', 2, null, false);
         }
+    }
+    nPress = () =>{
+        const { navigation } = this.props;
+        navigation.navigate('Getpassword', {name: ''});
     }
     render() {
         return (
@@ -81,7 +108,7 @@ class Login extends Component {
                             登  录
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.getpassword}>
+                    <TouchableOpacity style={styles.getpassword} onPress={this.nPress}>
                         <Text style={[styles.buttontext,{color:'gray'}]}>
                             忘记密码？
                         </Text>
