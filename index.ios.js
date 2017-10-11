@@ -4,15 +4,19 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { AppRegistry, View, Text} from 'react-native';
+import React, {Component} from 'react';
+import {AppRegistry, View, Text} from 'react-native';
 import Home from './app/containers/Home';
 import Router from './app/containers/router';
+import {Provider} from 'react-redux';
+import store from './app/redux/Store';
 // create a component
 class LongSheng extends Component {
     render() {
         return (
-            <Router />
+            <Provider store={store}>
+                <Router/>
+            </Provider>
         );
     }
 }

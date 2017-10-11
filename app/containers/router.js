@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import Home from './Home';
 import { StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
@@ -7,6 +7,12 @@ import Mine from './Mine';
 import { Image, Dimensions} from 'react-native';
 import { NavBarConfig } from './controllers';
 import Login from './login';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeProgress } from '../redux/Actions';
+import ProgressHud from './ProgressHud';
+import { View } from 'react-native';
+
 
 const { height, width } = Dimensions.get('window');
 
@@ -56,4 +62,38 @@ const HomeRouter = StackNavigator(
     }
 );
 
-export default HomeRouter;
+// create a component
+class mrouter extends Component {
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.progressHud !== nextProps.progressHud) {
+            return true;
+        } 
+        return false;  
+    }
+    render() {
+        return (
+            <View style={{ width,height }}>
+                <HomeRouter />
+                {
+                    this.props.progressHud ?  <ProgressHud /> : null
+                }
+               
+            </View>
+        );
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    ...bindActionCreators(changeProgress, dispatch),
+});
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        progressHud: state.progressHud,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(mrouter);
+
+// export default HomeRouter;
