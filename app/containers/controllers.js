@@ -14,10 +14,10 @@ import CardDetail from './CardDetail';
 const NavColor = '#D5002F';
 export const NavBarConfig = {
     headerStyle: { backgroundColor: NavColor },
-    headerTitleStyle: { color: 'white' },
+    headerTitleStyle: { color: 'white',alignSelf:'center' },
     headerTintColor: 'white',
     tabBarVisible: false,
-    headerBackTitle: '',
+    headerBackTitle: null,
 };
 
 const Routes = {
