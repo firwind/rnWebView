@@ -10,6 +10,7 @@ import Zu3 from '../images/zu3.png';
 import Zu4 from '../images/zu4.png';
 import Zu5 from '../images/zu5.png';
 import Zu6 from '../images/zu6.png';
+import HiddenImage from '../images/hidden.png';
 import Xinshou from '../images/xinshou1.png';
 import { Grid, Toast } from 'antd-mobile';
 import ManageStation from './ManageStattion';
@@ -54,6 +55,7 @@ class home extends Component {
            todayBucket: 0,
            todayCards: 0,
            waterStation: 0,
+           hidden:false
        };
        
    }
@@ -76,14 +78,13 @@ class home extends Component {
          navigation.navigate('ApplyCard', {name: '办理水卡'});
              break;
          case '在线充值':
-         
          navigation.navigate('ChargeCard', {name: '会员管理'});
              break;
          case '水站管理':
          navigation.navigate('ManageStation', {name: '水站管理'});
              break;
          case '会员管理':
-         navigation.navigate('MangeMember', {name: '会员管理'});
+         navigation.navigate('Records', {name: '会员管理'});
          break;
          case '经营分析':
          case '水站学堂':
@@ -110,9 +111,10 @@ class home extends Component {
                 <View style={styles.midcontainer}>
                    <Text style={{color:'white'}}>当天充值</Text>
                    <View style={{flexDirection:'row'}}>
-                      <Text style={{color:'white',fontSize:25}}>￥{this.state.todayMoney}</Text>
-                      <TouchableOpacity>
-                         <Image source={EyeIcon} style={[styles.mineIcon,{marginLeft:10}]} resizeMode='contain' />
+                      <Text style={{color:'white',fontSize:25}}>￥{this.state.hidden?'***':this.state.todayMoney}</Text>
+                      <TouchableOpacity onPress={()=>{this.setState({hidden:!this.state.hidden})
+                      }}>
+                         <Image source={this.state.hidden?HiddenImage:EyeIcon} style={[styles.mineIcon,{marginLeft:10}]} resizeMode='contain' />
                       </TouchableOpacity>
                    </View>
                 </View>

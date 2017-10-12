@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { View, Text, FlatList, ActivityIndicator, AsyncStorage,Dimensions} from "react-native";
 import {getJSON} from '../network/index';
-import {changeProgress} from '../redux/Actions';
+import {changeProgress, onClick} from '../redux/Actions';
 import { List } from 'antd-mobile';
+import CardDetail from './CardDetail';
 
 const {width,height} = Dimensions.get('window');
 
@@ -77,7 +78,7 @@ class Records extends Component {
     //   }
     // );
   };
-
+ 
   renderSeparator = () => {
     return (
       <View
@@ -110,21 +111,24 @@ class Records extends Component {
       </View>
     );
   };
-
+  mPress = (item) =>{
+    const { navigation } = this.props;
+    navigation.navigate('CardDetail', {id: item.cardId}); 
+  }
   render() {
     return (
         <List style={{height,width}}>
             <FlatList
             style={{height,width}}
             data={this.state.data}
+            
             renderItem={({ item }) => (
                 <List.Item  
+                    arrow='horizontal'
                     multipleLine 
-                    extra={`打水量：${item.balance}L`}>
-                        <View>
-                            <Text style={{fontSize:18}}>{item.alias.length>0?item.alias:item.cardNo}</Text>
-                            <Text style={{color:'lightgray'}}>{item.mobile}</Text>
-                        </View>
+                    onClick={()=>this.mPress(item)}
+                    extra={`余额：￥${item.balance}元`}>
+                        {item.alias.length>0?item.alias:item.cardNo}
                 </List.Item>
             )}
             keyExtractor={item => item.cardId}

@@ -99,8 +99,8 @@ class Login extends Component {
         }
     }
     nPress = () =>{
-        const { navigation } = this.props;
-        navigation.navigate('Getpassword', {name: ''});
+        // const { navigation } = this.props;
+        // navigation.navigate('Getpassword', {name: ''});
     }
     render() {
         return (

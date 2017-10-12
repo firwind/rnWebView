@@ -8,6 +8,7 @@ import MangeMember from './MangeMember';
 import Getpassword from './Getpassword';
 import Records from './Records';
 import ChargeCard from './ChargeCard';
+import CardDetail from './CardDetail';
 
 
 const NavColor = '#D5002F';
@@ -20,6 +21,15 @@ export const NavBarConfig = {
 };
 
 const Routes = {
+    CardDetail: {
+        name: 'CardDetail',
+        description: 'CardDetail',
+        screen: CardDetail,
+        navigationOptions: {
+            title: '水卡信息',
+            ...NavBarConfig,
+        }
+    },
     ChargeCard: {
         name: 'ChargeCard',
         description: 'ChargeCard',
@@ -34,7 +44,7 @@ const Routes = {
         description: 'Records',
         screen: Records,
         navigationOptions: {
-            title: '打水记录',
+            title: '水卡管理',
             ...NavBarConfig,
         }
     },

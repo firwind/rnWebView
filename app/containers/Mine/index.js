@@ -4,6 +4,33 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 // create a component
 class Mine extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            todayMoney: 0,
+            todayBucket: 0,
+            todayCards: 0,
+            waterStation: 0,
+            hidden:false,
+            memberName:'',
+            photoUrl:''
+        };
+        
+    }
+    componentDidMount() {
+        const { navigation } = this.props;
+        const { state } = navigation;
+        const { params } = state;
+        this.setState({
+            todayMoney: params.todayRecharge,
+            todayBucket: params.todayFetch,
+            todayCards: params.todayCardNum,
+            waterStation: params.dispenserNum,
+            memberName:params.memberName,
+            photoUrl:params.photoUrl
+        });
+        
+    }
     onBack = () => {
         const { navigation } = this.props;
         navigation.navigate('Main');
@@ -26,7 +53,7 @@ class Mine extends Component {
                     }}>
                         <Image
                             source={{
-                            uri: 'http://pic.qqtn.com/up/2017-8/2017082311054115976.jpg'
+                            uri:this.state.photoUrl
                         }}
                             style={{
                             height: 60,
@@ -37,7 +64,7 @@ class Mine extends Component {
                             style={{
                             fontSize: 20,
                             marginLeft: 30
-                        }}>张维波</Text>
+                        }}>{this.state.memberName}</Text>
                     </View>
                     <View
                         style={{
@@ -47,15 +74,15 @@ class Mine extends Component {
                         marginBottom:15
                     }}>
                         <View style={styles.contentCenter}>
-                            <Text style={[styles.messagetext, styles.messageFont]}>230户</Text>
+                            <Text style={[styles.messagetext, styles.messageFont]}>{this.state.todayBucket}户</Text>
                             <Text style={styles.des}>今日打水(桶)</Text>
                         </View>
                         <View style={styles.contentCenter}>
-                            <Text style={[styles.messagetext, styles.messageFont]}>1200元</Text>
+                            <Text style={[styles.messagetext, styles.messageFont]}>{this.state.todayCards}张</Text>
                             <Text style={styles.des}>今日办卡(张)</Text>
                         </View>
                         <View style={styles.contentCenter}>
-                            <Text style={[styles.messagetext, styles.messageFont]}>890桶</Text>
+                            <Text style={[styles.messagetext, styles.messageFont]}>{this.state.waterStation}</Text>
                             <Text style={styles.des}>经营水站(台)</Text>
                         </View>
                     </View>

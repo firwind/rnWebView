@@ -61,7 +61,7 @@ class StationDetail extends Component {
       }
     onclick = () =>{
         const { navigation } = this.props;
-        navigation.navigate('Records', {name: ''});
+        navigation.navigate('MangeMember', {id: this.state.cardId,type:2});  
         console.log('====================================');
         console.log('打印日志阿道夫');
         console.log('====================================');
