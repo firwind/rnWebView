@@ -1298,7 +1298,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuandian.waterStation;
+				PRODUCT_BUNDLE_IDENTIFIER = lizy.rocks.Park;
 				PRODUCT_NAME = longsheng;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1312,6 +1312,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = H9BGE26LXB;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1328,9 +1329,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuandian.waterStation;
+				PRODUCT_BUNDLE_IDENTIFIER = lizy.rocks.Park;
 				PRODUCT_NAME = longsheng;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				VALIDATE_PRODUCT = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

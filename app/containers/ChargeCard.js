@@ -9,12 +9,15 @@ import {
     TouchableOpacity
 } from 'react-native';
 import {List, InputItem, Toast, Radio, Icon} from 'antd-mobile';
-import Qianbao from '../images/qianbao.png';
-import QrcodeImage from '../images/saoyisao.png';
 import { postJSON } from '../network';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeProgress } from '../redux/Actions';
+import Qianbao from '../images/qianbao.png';
+import cardcode from '../images/cardcode.png';
+import QrcodeImage from '../images/saoyisao.png';
+import user from '../images/user.png';
+import tel from '../images/tel.png';
 const {width, height} = Dimensions.get('window');
 
 
@@ -85,7 +88,7 @@ class ChargeCard extends Component {
             <View style={styles.container}>
                 <List>
                     <InputItem 
-                        placeholder="输入卡号，如0200157492" 
+                        placeholder="输入卡号" 
                         type ='number' 
                         extra={
                         <TouchableOpacity onPress={()=>navigation.navigate('Scanner', {callback:this.getCardNum})}>
@@ -96,7 +99,9 @@ class ChargeCard extends Component {
                         </TouchableOpacity>} 
                         value={this.state.cardNum} 
                         onChange={(value)=>this.setState({cardNum:value})}
-                        />
+                        >
+                        <Image source={cardcode} style={{height:26,width:26}} resizeMode='contain' />
+                        </InputItem>
                 </List>
                 <List renderHeader={() => '充值金额'}>
                     <InputItem 

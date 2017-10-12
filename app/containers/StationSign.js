@@ -17,7 +17,6 @@ class StationSign extends Component {
           num:''
         };
     }
-
     async fethData(value) {
         this.props.changeProgress(true);
         const url = `socialDispenser/dispenserDetail?dispenserId=${value}`;
@@ -70,8 +69,7 @@ class StationSign extends Component {
                             multiline={false}
                             style={styles.accountTextInput}
                             underlineColorAndroid='transparent'
-                            keyboardType='email-address'
-                            secureTextEntry={true}
+                            
                             value = {this.state.num}
                             onChangeText = {(text) => {
                                 this.setState({num:text}); 
