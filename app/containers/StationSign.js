@@ -25,9 +25,12 @@ class StationSign extends Component {
             const json = await getJSON(url);
              this.props.changeProgress(false);
              if (json.success) {
-                this.setState({
-                    ...json
-                })   
+                const { navigation } = this.props;
+                const { state } = navigation;
+                const { params } = state;
+                params.callback(params.id);    
+                Toast.info('签收成功!', 2, null, false);
+                navigation.goBack();
              }
              else{
               Toast.info('请求接口失败!', 2, null, false);
@@ -42,6 +45,8 @@ class StationSign extends Component {
             const { navigation } = this.props;
             const { state } = navigation;
             const { params } = state;
+            
+            this.fethData(params.id);
            
         }else{
             Toast.info('主板编号不能为空', 2, null, false);

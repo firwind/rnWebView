@@ -88,7 +88,7 @@ class ManageStation extends Component {
                if (item.status==='运营中') {
                     navigation.navigate('StationDetail', {id: item.dispenserId}) 
                 }else{
-                    navigation.navigate('StationSign', {id: item.dispenserId})  
+                    navigation.navigate('StationSign', {id: item.dispenserId,callback:this.fethData})  
             }}}>
                 <View style={styles.cell}>
                     <View style={{width,height:0.5,backgroundColor:'lightgray',position:'absolute'}}/>
