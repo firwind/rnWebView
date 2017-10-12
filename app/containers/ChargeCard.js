@@ -19,7 +19,7 @@ const {width, height} = Dimensions.get('window');
 
 
 // create a component
-class ApplyCard extends Component {
+class ChargeCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,14 +37,6 @@ class ApplyCard extends Component {
             Toast.info('卡号不能为空！', 2, null, false);
             return;
         }
-        if (this.state.nameStr.length===0) {
-            Toast.info('姓名不能为空！', 2, null, false);
-            return;
-        }
-        if (this.state.phoneStr.length===0) {
-            Toast.info('电话不能为空！', 2, null, false);
-            return;
-        }
         if (this.state.money===0) {
             Toast.info('金额不能为0', 2, null, false);
             return;
@@ -53,11 +45,11 @@ class ApplyCard extends Component {
     }
     async fethData() {
         this.props.changeProgress(true);
-        const params = `cardNo=${this.state.cardNum}&alias=${this.state.nameStr}&mobile=${this.state.phoneStr}&recharge=${this.state.money}`;
+        const params = `cardId=${this.state.cardNum}&recharge=${this.state.money}`;
         console.log('====================================');
         console.log(`输出参数：${params}`);
         console.log('====================================');
-        const url = 'socialCard/createCard';
+        const url = 'socialCard/recharge';
          try {
             const json = await postJSON(url,params);
              this.props.changeProgress(false);
@@ -69,7 +61,7 @@ class ApplyCard extends Component {
                     money: 0
                 })
                 
-                Toast.info('水卡办理成功!', 3, null, false);
+                Toast.info('水卡充值成功!', 3, null, false);
              }
              else{
               Toast.info('请求接口失败!', 2, null, false);
@@ -105,15 +97,6 @@ class ApplyCard extends Component {
                         value={this.state.cardNum} 
                         onChange={(value)=>this.setState({cardNum:value})}
                         />
-                    <InputItem 
-                        placeholder="输入姓名，如张三" 
-                        value={this.state.nameStr} 
-                        onChange={(value)=>this.setState({nameStr:value})} />
-                    <InputItem 
-                        placeholder="输入用户手机号" 
-                        type='phone'
-                        value={this.state.phoneStr} 
-                        onChange={(value)=>this.setState({phoneStr:value})} />
                 </List>
                 <List renderHeader={() => '充值金额'}>
                     <InputItem 
@@ -208,4 +191,4 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApplyCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ChargeCard);

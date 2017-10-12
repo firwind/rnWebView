@@ -6,6 +6,8 @@ import StationSign from './StationSign';
 import StationDetail from './StationDetail';
 import MangeMember from './MangeMember';
 import Getpassword from './Getpassword';
+import Records from './Records';
+import ChargeCard from './ChargeCard';
 
 
 const NavColor = '#D5002F';
@@ -18,6 +20,24 @@ export const NavBarConfig = {
 };
 
 const Routes = {
+    ChargeCard: {
+        name: 'ChargeCard',
+        description: 'ChargeCard',
+        screen: ChargeCard,
+        navigationOptions: {
+            title: '水卡充值',
+            ...NavBarConfig,
+        }
+    },
+    Records: {
+        name: 'Records',
+        description: 'Records',
+        screen: Records,
+        navigationOptions: {
+            title: '打水记录',
+            ...NavBarConfig,
+        }
+    },
     Getpassword: {
         name: 'Getpassword',
         description: 'Getpassword',

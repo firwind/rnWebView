@@ -7,53 +7,88 @@ import {
        FlatList,
        Dimensions,
        Image,
-       TouchableOpacity
+       TouchableOpacity,
+       AsyncStorage
 } from 'react-native';
+import { Toast } from 'antd-mobile';
+import { getText, getJSON, postJSON } from '../network';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeProgress } from '../redux/Actions';
 import Qianbao from '../images/qianbao.png';
 
 
 const { width, height } =Dimensions.get('window');
 
-const datas = [
-    {
-        title:'南岔护额',
-        id: 1,
-        dashui: 487,
-        state:1,
 
-    },
-    {
-        title:'南岔adad护额',
-        id: 2,
-        dashui: 487,
-        state:2,
+// const datas = [
+//     {
+//         dispenserId:1
+//         dispenserName:"南岔河水站"
+//         status:"运营中"
+//         todayFetch:487
+//     },
+//     {
+//         title:'南岔adad护额',
+//         id: 2,
+//         dashui: 487,
+//         state:2,
 
-    }
-];
+//     }
+// ];
+
 
 // create a component
 class ManageStation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:datas
+            data:[]
         };
 
     }
+    componentDidMount() {
+       AsyncStorage.getItem('id',(error,value)=>{
+           if(value.length>0){
+              this.fethData(value);
+           }
+           else{
+            Toast.info('权限出错', 2, null, false);
+           }
+       });
+        
+    }
+    async fethData(value) {
+        this.props.changeProgress(true);
+        const url = `socialDispenser/queryDispenser?memberId=${value}`;
+         try {
+            const json = await getJSON(url);
+             this.props.changeProgress(false);
+             if (json.dispenserList) {
+                this.setState({data:json.dispenserList})
+             }
+             else{
+                Toast.info('请求接口失败!', 2, null, false);
+             }
+         } catch (error) {
+           Toast.info('网络错误!', 2, null, false);
+           this.props.changeProgress(false);
+         }
+      }
     onClick = (item) => {
         const { navigation } = this.props;
         
     }
     itemCell = ({item}) => {
         const { navigation } = this.props;
-        const path = item.state === 2 ? 'StationSign' : 'StationDetail'; 
+        const mstyle = item.status==='运营中'? styles.textState : styles.textState1;
         //navigation.navigate('Home', {name: ''});
         return (
            <TouchableOpacity onPress={()=>{
-               if (item.state === 1) {
-                    navigation.navigate('StationDetail', {name: '水站信息'}) 
+               if (item.status==='运营中') {
+                    navigation.navigate('StationDetail', {id: item.dispenserId}) 
                 }else{
-                    navigation.navigate('StationSign', {name: '水站签收'})  
+                    navigation.navigate('StationSign', {id: item.dispenserId})  
             }}}>
                 <View style={styles.cell}>
                     <View style={{width,height:0.5,backgroundColor:'lightgray',position:'absolute'}}/>
@@ -66,18 +101,18 @@ class ManageStation extends Component {
                     <View style={styles.content}>
                         <View style={styles.top}>
                             <Text style={styles.text1}>
-                                asdasdasd
+                                {item.dispenserName}
                             </Text>
-                            <Text style={styles.textState}>
-                                运营中
+                            <Text style={mstyle}>
+                                {item.status}
                             </Text>
                         </View>
                         <View style={styles.bottom}>
                             <Text style={styles.text2}>
-                                asdasdasd
+                                当天打水
                             </Text>
                             <Text style={styles.text3}>
-                                487L
+                                {item.todayFetch}L
                             </Text>
                         </View>
                     </View>
@@ -167,6 +202,15 @@ const styles = StyleSheet.create({
         lineHeight:20,
         
     },
+    textState1:{
+        backgroundColor:'lightgray',
+        color:'white',
+        textAlign:'center',
+        height:25,
+        width:50,
+        lineHeight:20,
+        
+    },
     text1:{
         color:'gray',
         fontSize:18,
@@ -185,5 +229,16 @@ const styles = StyleSheet.create({
     }
 });
 
-//make this component available to the app
-export default ManageStation;
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changeProgress
+},dispatch);
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        progressHud: state.progressHud,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageStation);
+
+

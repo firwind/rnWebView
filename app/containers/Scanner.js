@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,Alert } from 'react-native';
 import { QRScannerView } from 'ac-qrcode';
 
 // create a component
@@ -27,6 +27,11 @@ class Scanner extends Component {
     }
 
     barcodeReceived(e) {
+        const { navigation } = this.props;
+        const { state } = navigation;
+        const { params } = state;
+        navigation.goBack();
+        params.callback(e.data);
         // Alert.alert(
         //     'Type: ' + e.type,
         //     'Data: ' + e.data,
@@ -36,7 +41,7 @@ class Scanner extends Component {
         //     ],
         //     { cancelable: false }
         // )
-        //console.log(e)
+        console.log(e)
     }
 }
 

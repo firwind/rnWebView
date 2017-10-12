@@ -30,7 +30,7 @@ const mainReducer = (state = {}, action) => {
     }
 };
 
-const progressHud = (state = true, action) => {
+const progressHud = (state = false, action) => {
     switch (action.type) {
     case AC.CHANGE_PROGRESSHUD:
         return action.visible;

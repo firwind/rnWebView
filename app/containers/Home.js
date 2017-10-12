@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image,Dimensions } from 'react-native';
 import { NavBarConfig } from './controllers';
 import MineIcon from '../images/mine.png';
 import EyeIcon from '../images/eye.png';
@@ -14,6 +14,8 @@ import Xinshou from '../images/xinshou1.png';
 import { Grid, Toast } from 'antd-mobile';
 import ManageStation from './ManageStattion';
 import MangeMember from './MangeMember';
+
+const { width, height } = Dimensions.get('window');
 
 
 const apps = [
@@ -48,12 +50,24 @@ class home extends Component {
    constructor(props) {
        super(props);
        this.state = {
-           todayMoney: 1780.00,
-           todayBucket: 189,
-           todayCards: 58,
-           waterStation: 19,
+           todayMoney: 0,
+           todayBucket: 0,
+           todayCards: 0,
+           waterStation: 0,
        };
        
+   }
+   componentDidMount() {
+    const { navigation } = this.props;
+    const { state } = navigation;
+    const { params } = state;
+    this.setState({
+        todayMoney: params.todayRecharge,
+        todayBucket: params.todayFetch,
+        todayCards: params.todayCardNum,
+        waterStation: params.dispenserNum,
+    });
+    
    }
    itemClick = (item) => {
     const { navigation } = this.props;
@@ -63,7 +77,7 @@ class home extends Component {
              break;
          case '在线充值':
          
-         navigation.navigate('MangeMember', {name: '会员管理'});
+         navigation.navigate('ChargeCard', {name: '会员管理'});
              break;
          case '水站管理':
          navigation.navigate('ManageStation', {name: '水站管理'});
@@ -91,7 +105,7 @@ class home extends Component {
                   <Text style={styles.title}>
                      水站管家
                   </Text>
-                  <Image style={styles.mineIcon}/>
+                 
                 </View>
                 <View style={styles.midcontainer}>
                    <Text style={{color:'white'}}>当天充值</Text>

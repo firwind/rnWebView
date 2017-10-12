@@ -7,7 +7,7 @@ async function fetchService(url, setting = {
     ...setting,
     headers: {
       ...setting.headers,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
       Accept: 'application/json',
     },
   };
@@ -15,6 +15,9 @@ async function fetchService(url, setting = {
     `${ServicePrefix}/${url}`,
     reqSetting,
   );
+  console.log('====================================');
+  console.log('adfdfsdf');
+  console.log('====================================');
   if (!resp.ok) {
     const error = new Error(`${url} is not OK!`);
     error.code = resp.status;
@@ -32,8 +35,11 @@ export async function getText(url) {
   return resp.text();
 }
 
-export async function getJSON(url, setting) {
-  const resp = await fetchService(url, setting);
+export async function getJSON(url, data, setting) {
+  const resp = await fetchService(url, {
+    ...setting,
+    method: 'GET',
+  });
   return resp.json();
 }
 
@@ -41,7 +47,7 @@ export async function postJSON(url, data, setting) {
   const resp = await fetchService(url, {
     ...setting,
     method: 'POST',
-    body: JSON.stringify(data),
+    body: data,
   });
   console.log('====================================');
   console.log('adfdfsdf');

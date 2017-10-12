@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,TextInput,Image } from 'react-native';
 import QianShouImage from '../images/qs.png';
 import { Toast } from 'antd-mobile';
-
+import { getText, getJSON, postJSON } from '../network';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeProgress } from '../redux/Actions';
 
 const texts = '   运营商通过后台申请升级水站设备后，日日顺会安排售后服务人员免费上门更换主板。更换后输入主板编号即可正常使用';
 // create a component
@@ -14,10 +17,31 @@ class StationSign extends Component {
           num:''
         };
     }
+
+    async fethData(value) {
+        this.props.changeProgress(true);
+        const url = `socialDispenser/dispenserDetail?dispenserId=${value}`;
+         try {
+            const json = await getJSON(url);
+             this.props.changeProgress(false);
+             if (json.success) {
+                this.setState({
+                    ...json
+                })   
+             }
+             else{
+              Toast.info('请求接口失败!', 2, null, false);
+             }
+         } catch (error) {
+           Toast.info('网络错误!', 2, null, false);
+           this.props.changeProgress(false);
+         }
+      }
     mPress = () =>{
         if (this.state.num.length>0) {
             const { navigation } = this.props;
-            navigation.navigate('Home', {name: ''});
+            const { state } = navigation;
+            const { params } = state;
            
         }else{
             Toast.info('主板编号不能为空', 2, null, false);
@@ -113,5 +137,15 @@ const styles = StyleSheet.create({
      }
 });
 
-//make this component available to the app
-export default StationSign;
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changeProgress
+},dispatch);
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        progressHud: state.progressHud,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StationSign);
+

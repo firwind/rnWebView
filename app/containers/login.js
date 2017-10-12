@@ -8,7 +8,8 @@ import {
     ImageBackground, 
     Dimensions,
     Image,
-    TextInput
+    TextInput,
+    AsyncStorage
 } from 'react-native';
 import Home from './Home';
 import Bg from '../images/bg.png';
@@ -16,7 +17,10 @@ import Logo from '../images/logo.png';
 import headicon from '../images/headicon.png';
 import passicon from '../images/passicon.png';
 import { Toast } from 'antd-mobile';
-import { getJSON, postJSON } from '../network';
+import { postJSON } from '../network';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeProgress } from '../redux/Actions';
 
 const { width, height } = Dimensions.get('window');
 
@@ -29,23 +33,55 @@ class Login extends Component {
            nameStr: '',
            pwdStr: '',
         };
+
+    }
+    componentDidMount() {
+        AsyncStorage.getItem('name',(error,value)=>{
+            if (value) {
+                this.setState({nameStr:value});
+            }
+          
+           console.log('====================================');
+           console.log();
+           console.log('====================================');
+        });
+        AsyncStorage.getItem('pwd',(error,value)=>{
+            if (value) {
+                this.setState({pwdStr:value});
+                this.loginApps();
+            }
+           
+            console.log('====================================');
+            console.log();
+            console.log('====================================');
+        });
     }
     async loginApps() {
-      const params = {
-        mobile:this.state.nameStr,
-        passWord:this.state.pwdStr
-      };
+      this.props.changeProgress(true);
+      const params = `mobile=${this.state.nameStr}&passWord=${this.state.pwdStr}`;
       const url = 'socialLogin/login';
        try {
           const json = await postJSON(url,params);
-        //   this.props.changeProgress({ visible: false });
+           this.props.changeProgress(false);
+           if (json.dispenserNum) {
+            AsyncStorage.setItem('name',this.state.nameStr,null);
+            AsyncStorage.setItem('pwd',this.state.pwdStr,null);
+            AsyncStorage.setItem('id',`${json.memberId}`,null);
+            const { navigation } = this.props;
+            navigation.navigate('Home', {...json});
+            
+           }
+           else{
+            Toast.info('用户名或密码错误!', 2, null, false);
+           }
           console.log('====================================');
           console.log(`请求接口数据${JSON.stringify(json)}`);
           console.log('====================================');
 
         //   this.props.changeHomeApp(json);
        } catch (error) {
-           
+         Toast.info('网络错误!', 2, null, false);
+         this.props.changeProgress(false);
         //    this.props.changeProgress(false);
            console.log('====================================');
            console.log(`请求接口失败${error}`);
@@ -54,9 +90,9 @@ class Login extends Component {
     }
     mPress = () =>{
         if (this.state.nameStr.length>0&&this.state.pwdStr.length>0) {
-             const { navigation } = this.props;
-             navigation.navigate('Home', {name: ''});
-            this.loginApps();
+             
+             this.loginApps();
+            
            
         }else{
             Toast.info('用户名和密码都不能为空!', 2, null, false);
@@ -195,5 +231,17 @@ const styles = StyleSheet.create({
 
 });
 
-//make this component available to the app
-export default Login;
+
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changeProgress
+},dispatch);
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        progressHud: state.progressHud,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
