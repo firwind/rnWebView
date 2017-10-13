@@ -34,7 +34,7 @@ const apps = [
     },
     {
         appIcon:Zu2,
-        text: '在线充值'
+        text: '水卡充值'
     },
     {
         appIcon:Zu3,
@@ -42,16 +42,17 @@ const apps = [
     },
     {
         appIcon:Zu4,
-        text: '会员管理'
+        text: '水卡管理'
     },
     {
         appIcon:Zu5,
-        text: '经营分析'
+        text: '水站商城'
     },
     {
         appIcon:Zu6,
-        text: '水站学堂'
+        text: '经营分析'
     }
+    
 ];
 
 // create a component
@@ -63,6 +64,7 @@ class home extends Component {
            todayBucket: 0,
            todayCards: 0,
            waterStation: 0,
+           localStorage: '',
            hidden:false
        };
        
@@ -76,6 +78,7 @@ class home extends Component {
         todayBucket: params.todayFetch,
         todayCards: params.todayCardNum,
         waterStation: params.dispenserNum,
+        localStorage: params.localStorage
     });
     BackHandler.addEventListener('hardwareBackPress', function() {
         console.log('====================================');
@@ -100,8 +103,9 @@ class home extends Component {
          navigation.navigate('Records', {name: '会员管理'});
          break;
          case '经营分析':
-         case '水站学堂':
-         Toast.info('敬请期待!', 2, null, false);
+         break;
+         case '水站商城':
+         navigation.navigate('Shop', {user:this.state.localStorage});
             break;
          default:
              break;
@@ -238,7 +242,7 @@ const styles = StyleSheet.create({
     header:{
         position:'absolute',
         left:0,
-        top:10
+        top:15
     }
 });
 

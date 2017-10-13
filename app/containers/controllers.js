@@ -11,6 +11,7 @@ import Getpassword from './Getpassword';
 import Records from './Records';
 import ChargeCard from './ChargeCard';
 import CardDetail from './CardDetail';
+import Shop from './Shop';
 
 
 const NavColor = '#c7003a';
@@ -30,6 +31,15 @@ export const NavBarConfig = {
 };
 
 const Routes = {
+    Shop: {
+        name: 'Shop',
+        description: 'Shop',
+        screen: Shop,
+        navigationOptions: {
+            title: '水站商城',
+            ...NavBarConfig,
+        }
+    },
     CardDetail: {
         name: 'CardDetail',
         description: 'CardDetail',
