@@ -80,8 +80,21 @@ class StationDetail extends Component {
                   </View>
                 </ImageBackground>
                 <List>
-                  <List.Item extra={this.state.netStatus}>联网状态</List.Item>
-                  <List.Item extra='查看' arrow='horizontal' onClick={()=>this.onclick()}>打水记录</List.Item>
+                  <List.Item 
+                       extra={<Text style={{fontSize:14,color:'#666666'}}>{this.state.netStatus}</Text>} 
+                       >
+                      <Text style={{fontSize:14,color:'#666666'}}>
+                         联网状态
+                      </Text>
+                 </List.Item>
+                  <List.Item 
+                       extra={<Text style={{fontSize:14,color:'#666666'}}>查看</Text>} 
+                       arrow='horizontal' 
+                       onClick={()=>this.onclick()}>
+                      <Text style={{fontSize:14,color:'#666666'}}>
+                          打水记录
+                      </Text>
+                 </List.Item>
                </List>
             </View>
         );
