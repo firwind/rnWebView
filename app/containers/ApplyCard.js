@@ -6,9 +6,10 @@ import {
     StyleSheet,
     Image,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
-import {List, InputItem, Toast, Radio, Icon} from 'antd-mobile';
+import {List, InputItem, Toast, Radio, Icon,} from 'antd-mobile';
 import Qianbao from '../images/qianbao.png';
 import cardcode from '../images/cardcode.png';
 import QrcodeImage from '../images/saoyisao.png';
@@ -32,6 +33,7 @@ class ApplyCard extends Component {
             money: 0
         };
     }
+   
     getCardNum = (num) =>{
         this.setState({cardNum:num})
     }
@@ -52,11 +54,19 @@ class ApplyCard extends Component {
             Toast.info('金额不能为0', 2, null, false);
             return;
         }
-        this.fethData();
+        AsyncStorage.getItem('id',(error,value)=>{
+            if(value.length>0){
+                this.fethData(value);
+            }
+            else{
+             Toast.info('权限出错', 2, null, false);
+            }
+        });
+        
     }
-    async fethData() {
+    async fethData(value) {
         this.props.changeProgress(true);
-        const params = `cardNo=${this.state.cardNum}&alias=${this.state.nameStr}&mobile=${this.state.phoneStr}&recharge=${this.state.money}`;
+        const params = `memberId=${value}&cardNo=${this.state.cardNum}&alias=${this.state.nameStr}&mobile=${this.state.phoneStr}&recharge=${this.state.money}`;
         console.log('====================================');
         console.log(`输出参数：${params}`);
         console.log('====================================');

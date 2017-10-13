@@ -10,7 +10,8 @@ import {
     Image,
     TextInput,
     AsyncStorage,
-    Platform
+    Platform,
+    KeyboardAvoidingView
 } from 'react-native';
 import Home from './Home';
 import Bg from '../images/bg.png';
@@ -107,10 +108,12 @@ class Login extends Component {
        const mstyle = Platform.OS === 'android' ? styles.destextandroid : styles.destext;
         return (
             <View style={styles.container}>
+               
              <ImageBackground source={Bg} style={{height,width}}>
                 <View style={styles.topcontainer}>
                   <Image source={Logo} style={{width:0.3*width}} resizeMode='contain'/>
                 </View>
+                <KeyboardAvoidingView behavior="padding"style={styles.avoid}>
                 <View style={{flex:1}}>
                     <View style={styles.input}>
                         <Image source={headicon} style={styles.icon} resizeMode='contain'/>
@@ -119,15 +122,17 @@ class Login extends Component {
                             multiline={false}
                             style={styles.accountTextInput}
                             underlineColorAndroid='transparent'
-                            keyboardType='email-address'
+                            keyboardType='numeric'
                             value = {this.state.nameStr}
                             onChangeText = {(text) => {
                                 this.setState({nameStr:text}); 
                             }}
-                            placeholder='请输入账号（邮箱或手机号）'/>
+                            returnKeyType='done'
+                            placeholder='请输入账号'/>
                     </View>
                     <View style={styles.input}>
                         <Image source={passicon} style={styles.icon} resizeMode='contain'/>
+                        
                         <TextInput 
                              style={styles.accountTextInput}
                              autoCapitalize = 'none'  
@@ -140,6 +145,7 @@ class Login extends Component {
                                 this.setState({pwdStr:text}); 
                              }}
                              returnKeyType='done' />
+                        
                     </View>
                     <TouchableOpacity style={styles.button} onPress={this.mPress}>
                         <Text style={styles.buttontext}>
@@ -151,12 +157,13 @@ class Login extends Component {
                             忘记密码？
                         </Text>
                     </TouchableOpacity>
-                    
                 </View>  
+                </KeyboardAvoidingView>
                 <Text style={[mstyle,{color:'gray'}]}>
                      Copyright©2017 RRSjk.All Rights Reserved
                 </Text>
              </ImageBackground>
+             
             </View>
         );
     }
@@ -237,6 +244,12 @@ const styles = StyleSheet.create({
         backgroundColor:'transparent',
         margin:10,
         marginBottom:30,
+     },
+     avoid:{
+        flex: 1,
+        backgroundColor:'white',
+        justifyContent: 'center',//
+        backgroundColor:'transparent'
      }
 
 });
