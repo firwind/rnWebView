@@ -102,7 +102,7 @@ class ChargeCard extends Component {
                         value={this.state.cardNum} 
                         onChange={(value)=>this.setState({cardNum:value})}
                         >
-                        <Image source={cardcode} style={{height:26,width:26}} resizeMode='contain' />
+                        <Image source={cardcode} style={{height:18,width:18}} resizeMode='contain' />
                         </InputItem>
                 </List>
                 <List renderHeader={() => '充值金额'}>
@@ -114,7 +114,7 @@ class ChargeCard extends Component {
                 </List>
                 <List renderHeader={() => '支付方式'}>
                     <List.Item
-                        extra={< Image source = {checkedicon}/>}
+                        extra={<Image source = {checkedicon} style={{height:16,width:16}} resizeMode='contain'/>}
                         thumb="http://7xqi6y.com1.z0.glb.clouddn.com/qianbao.png">
                         线下支付
                     </List.Item>

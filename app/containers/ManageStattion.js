@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeProgress } from '../redux/Actions';
 import Qianbao from '../images/shuizhanicon.png';
+import mPubSub from 'pubsub-js';
 
 
 const { width, height } =Dimensions.get('window');
@@ -37,7 +38,7 @@ const { width, height } =Dimensions.get('window');
 //     }
 // ];
 
-
+var memberId = '';
 // create a component
 class ManageStation extends Component {
     constructor(props) {
@@ -47,9 +48,24 @@ class ManageStation extends Component {
         };
 
     }
+    mySubcriber = (msg, data) => {
+        console.log( msg, data );
+        // Alert.alert(
+        //     '收到广播',
+        //     `${msg}内容是：${data.message},此alert来自mine组件`,
+        //     [
+        //       {text: 'OK', onPress: () => console.log('OK Pressed')},
+        //     ],
+        //     { cancelable: false }
+        //   )
+        //收到签收成功之后的通知，刷新界面
+        this.fethData(memberId);
+       }
     componentDidMount() {
+      var token = PubSub.subscribe( 'PublishMessage', this.mySubcriber );
        AsyncStorage.getItem('id',(error,value)=>{
            if(value.length>0){
+              memberId = value;
               this.fethData(value);
            }
            else{

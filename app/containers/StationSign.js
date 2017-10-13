@@ -7,6 +7,8 @@ import { getText, getJSON, postJSON } from '../network';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeProgress } from '../redux/Actions';
+import mPubSub from 'pubsub-js';
+
 
 const texts = '   运营商通过后台申请升级水站设备后，日日顺会安排售后服务人员免费上门更换主板。更换后输入主板编号即可正常使用';
 // create a component
@@ -19,16 +21,17 @@ class StationSign extends Component {
     }
     async fethData(value) {
         this.props.changeProgress(true);
-        const url = `socialDispenser/dispenserDetail?dispenserId=${value}`;
+        const url = `socialDispenser/receipt?dispenserId=${value}&serialCode=${this.state.num}`;
          try {
-            const json = await getJSON(url);
+            const json = await postJSON(url);
              this.props.changeProgress(false);
              if (json.success) {
                 const { navigation } = this.props;
                 const { state } = navigation;
                 const { params } = state;
-                params.callback(params.id);    
+                //params.callback(params.id);    
                 Toast.info('签收成功!', 2, null, false);
+                mPubSub.publishSync('PublishMessage',{message:'come from PubSub'})
                 navigation.goBack();
              }
              else{
@@ -129,7 +132,8 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         padding: 0,
         fontSize: 14,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        backgroundColor:'white'
     },
     destext:{
         fontSize:14,

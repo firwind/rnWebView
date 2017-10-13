@@ -9,6 +9,7 @@
 	"dependencies": {
 		"ac-qrcode": "^1.0.1",
 		"antd-mobile": "^1.6.11",
+		"pubsub-js": "^1.5.7",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.47.2",
 		"react-native-camera": "^0.10.0",

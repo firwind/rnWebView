@@ -86,7 +86,7 @@ class ApplyCard extends Component {
                 Toast.info('水卡办理成功!', 3, null, false);
              }
              else{
-              Toast.info('请求接口失败!', 2, null, false);
+              Toast.info(json.msg, 2, null, false);
              }
             console.log('====================================');
             console.log(`请求接口数据${JSON.stringify(json)}`);
@@ -117,7 +117,7 @@ class ApplyCard extends Component {
                             </View>
                         </TouchableOpacity>} 
                         value={this.state.cardNum} 
-                        onChange={(value)=>this.setState({cardNufm:value})}
+                        onChange={(value)=>this.setState({cardNum:value})}
                         >
                         <Image source={cardcode} style={{height:18,width:18}} resizeMode='contain' />
                         </InputItem>
@@ -129,7 +129,7 @@ class ApplyCard extends Component {
                         </InputItem>
                     <InputItem 
                         placeholder="输入用户手机号" 
-                        type='phone'
+                        type='number'
                         value={this.state.phoneStr} 
                         onChange={(value)=>this.setState({phoneStr:value})}>
                         <Image source={tel} style={{height:18,width:18}} resizeMode='contain' />
