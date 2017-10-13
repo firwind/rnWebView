@@ -123,6 +123,7 @@ class Login extends Component {
                             style={styles.accountTextInput}
                             underlineColorAndroid='transparent'
                             keyboardType='numeric'
+                            placeholderTextColor='grey' 
                             value = {this.state.nameStr}
                             onChangeText = {(text) => {
                                 this.setState({nameStr:text}); 
