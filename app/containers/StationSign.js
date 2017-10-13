@@ -35,7 +35,7 @@ class StationSign extends Component {
                 navigation.goBack();
              }
              else{
-              Toast.info('请求接口失败!', 2, null, false);
+              Toast.info(json.msg, 2, null, false);
              }
          } catch (error) {
            Toast.info('网络错误!', 2, null, false);

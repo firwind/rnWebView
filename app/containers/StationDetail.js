@@ -16,14 +16,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeProgress } from '../redux/Actions';
 import Qianbao from '../images/qianbao.png';
+import shuizhanicon from '../images/shuizhanicon.png';
 const { width,height} = Dimensions.get('window');
 
-// dispenserId	String(64)	可选	水站ID
-// dispenserName	String(64)	可选	水站名称
-// serialCode	String(64)	可选	水站编码(eg:88888888)
-// address	String(64)	可选	安装位置
-// netStatus	String(64)	可选	联网状态（正常或断网）
-// create a component
+
 class StationDetail extends Component {
     constructor(props) {
         super(props);
@@ -62,17 +58,12 @@ class StationDetail extends Component {
     onclick = () =>{
         const { navigation } = this.props;
         navigation.navigate('MangeMember', {id: this.state.cardId,type:2});  
-        console.log('====================================');
-        console.log('打印日志阿道夫');
-        console.log('====================================');
     }
     render() {
         return (
             <View style={styles.container}>
                 <ImageBackground source={Bg2} style={{width:width,height:120,flexDirection:'row'}}>
-                  <View style={styles.icon}>
-                      <Image source={icon1} style={{height:30,width:30}} resizeMode='contain'/>
-                  </View>
+                      <Image source={shuizhanicon} style={styles.icon} resizeMode='contain'/>
                   <View>
                     <Text style={styles.text1}>{this.state.dispenserName}</Text>
                     <Text style={styles.text2}>{`水站编号：${this.state.serialCode}`}</Text>
@@ -114,8 +105,6 @@ const styles = StyleSheet.create({
     icon:{
         height:50,
         width:50,
-        backgroundColor:'lightgray',
-        borderRadius:25,
         justifyContent:'center',
         alignItems:'center',
         margin:15
