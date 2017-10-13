@@ -9,7 +9,8 @@ import {
     Dimensions,
     Image,
     TextInput,
-    AsyncStorage
+    AsyncStorage,
+    Platform
 } from 'react-native';
 import Home from './Home';
 import Bg from '../images/bg.png';
@@ -103,6 +104,7 @@ class Login extends Component {
         // navigation.navigate('Getpassword', {name: ''});
     }
     render() {
+       const mstyle = Platform.OS === 'android' ? styles.destextandroid : styles.destext;
         return (
             <View style={styles.container}>
              <ImageBackground source={Bg} style={{height,width}}>
@@ -126,18 +128,18 @@ class Login extends Component {
                     </View>
                     <View style={styles.input}>
                         <Image source={passicon} style={styles.icon} resizeMode='contain'/>
-                        <TextInput
-                            autoCapitalize='none'
-                            multiline={false}
-                            style={styles.accountTextInput}
-                            underlineColorAndroid='transparent'
-                            keyboardType='email-address'
-                            secureTextEntry={true}
-                            value = {this.state.pwdStr}
-                            onChangeText = {(text) => {
+                        <TextInput 
+                             style={styles.accountTextInput}
+                             autoCapitalize = 'none'  
+                             value = {this.state.pwdStr}
+                             placeholder="请输入密码" 
+                             underlineColorAndroid="transparent" 
+                             placeholderTextColor='grey' 
+                             secureTextEntry={true} 
+                             onChangeText = {(text) => {
                                 this.setState({pwdStr:text}); 
-                            }}
-                            placeholder='请输入密码'/>
+                             }}
+                             returnKeyType='done' />
                     </View>
                     <TouchableOpacity style={styles.button} onPress={this.mPress}>
                         <Text style={styles.buttontext}>
@@ -151,7 +153,7 @@ class Login extends Component {
                     </TouchableOpacity>
                     
                 </View>  
-                <Text style={[styles.destext,{color:'gray'}]}>
+                <Text style={[mstyle,{color:'gray'}]}>
                      Copyright©2017 RRSjk.All Rights Reserved
                 </Text>
              </ImageBackground>
@@ -227,6 +229,14 @@ const styles = StyleSheet.create({
         textAlign:'center',
         backgroundColor:'transparent',
         margin:10,
+     },
+     destextandroid:{
+        fontSize:14,
+        color:'white',
+        textAlign:'center',
+        backgroundColor:'transparent',
+        margin:10,
+        marginBottom:30,
      }
 
 });
