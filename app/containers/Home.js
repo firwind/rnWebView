@@ -123,8 +123,8 @@ class home extends Component {
                 </View>
                 <View style={styles.midcontainer}>
                    <Text style={{color:'white'}}>当天充值</Text>
-                   <View style={{flexDirection:'row'}}>
-                      <Text style={{color:'white',fontSize:25}}>￥{this.state.hidden?'***':this.state.todayMoney}</Text>
+                   <View style={{flexDirection:'row',alignItems:'center'}}>
+                      <Text style={{color:'white',fontSize:28}}>￥{this.state.hidden?'***':this.state.todayMoney}</Text>
                       <TouchableOpacity onPress={()=>{this.setState({hidden:!this.state.hidden})
                       }}>
                          <Image source={this.state.hidden?HiddenImage:EyeIcon} style={[styles.mineIcon,{marginLeft:10}]} resizeMode='contain' />
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     },
     topcontainer:{
         flex:3,
-        backgroundColor: '#D5002F',
+        backgroundColor: '#c7003a',
         justifyContent:'space-around',
     },
     midcontainer:{
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
         height:30,
     },
     messagetext:{
-        color: '#D5002F',
+        color: '#c7003a',
     },
     contentCenter:{
         justifyContent:'center',
@@ -231,8 +231,8 @@ const styles = StyleSheet.create({
     },
    
     itemimage: {
-        height: 60,
-        width: 60,
+        height: 50,
+        width: 50,
         marginBottom: 10,
     },
     header:{

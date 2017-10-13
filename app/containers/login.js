@@ -232,14 +232,14 @@ const styles = StyleSheet.create({
        color:'white'
     },
     destext:{
-        fontSize:14,
+        fontSize:12,
         color:'white',
         textAlign:'center',
         backgroundColor:'transparent',
         margin:10,
      },
      destextandroid:{
-        fontSize:14,
+        fontSize:12,
         color:'white',
         textAlign:'center',
         backgroundColor:'transparent',

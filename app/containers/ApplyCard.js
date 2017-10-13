@@ -19,6 +19,7 @@ import { postJSON } from '../network';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeProgress } from '../redux/Actions';
+import checkedicon from '../images/checkedicon.png';
 const {width, height} = Dimensions.get('window');
 
 
@@ -116,22 +117,22 @@ class ApplyCard extends Component {
                             </View>
                         </TouchableOpacity>} 
                         value={this.state.cardNum} 
-                        onChange={(value)=>this.setState({cardNum:value})}
+                        onChange={(value)=>this.setState({cardNufm:value})}
                         >
-                        <Image source={cardcode} style={{height:26,width:26}} resizeMode='contain' />
+                        <Image source={cardcode} style={{height:18,width:18}} resizeMode='contain' />
                         </InputItem>
                     <InputItem 
                         placeholder="输入姓名，如张三" 
                         value={this.state.nameStr} 
                         onChange={(value)=>this.setState({nameStr:value})} >
-                        <Image source={user} style={{height:26,width:26}} resizeMode='contain' />
+                        <Image source={user} style={{height:18,width:18}} resizeMode='contain' />
                         </InputItem>
                     <InputItem 
                         placeholder="输入用户手机号" 
                         type='phone'
                         value={this.state.phoneStr} 
                         onChange={(value)=>this.setState({phoneStr:value})}>
-                        <Image source={tel} style={{height:26,width:26}} resizeMode='contain' />
+                        <Image source={tel} style={{height:18,width:18}} resizeMode='contain' />
                         </InputItem>
                 </List>
                 <List renderHeader={() => '充值金额'}>
@@ -143,7 +144,7 @@ class ApplyCard extends Component {
                 </List>
                 <List renderHeader={() => '支付方式'}>
                     <List.Item
-                        extra={() =>< Image source = {{uri:'https://cdn3.iconfinder.com/data/icons/iconic-1/32/check_alt-128.png'}}/>}
+                        extra={< Image source = {checkedicon} style={{height:16,width:16}} resizeMode='contain'/>}
                         thumb="http://7xqi6y.com1.z0.glb.clouddn.com/qianbao.png">
                         线下支付
                     </List.Item>
@@ -162,7 +163,7 @@ class ApplyCard extends Component {
                         style={[
                         styles.moneycontainer, {
                             flex: 1,
-                            backgroundColor: '#D5002F'
+                            backgroundColor: '#c7003a'
                         }
                     ]}>
                         <TouchableOpacity
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
     },
     money: {
         marginLeft: 0,
-        color: '#D5002F'
+        color: '#c7003a'
     }
 });
 const mapDispatchToProps = dispatch => bindActionCreators({

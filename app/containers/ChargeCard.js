@@ -18,6 +18,8 @@ import cardcode from '../images/cardcode.png';
 import QrcodeImage from '../images/saoyisao.png';
 import user from '../images/user.png';
 import tel from '../images/tel.png';
+import checkedicon from '../images/checkedicon.png';
+
 const {width, height} = Dimensions.get('window');
 
 
@@ -112,7 +114,7 @@ class ChargeCard extends Component {
                 </List>
                 <List renderHeader={() => '支付方式'}>
                     <List.Item
-                        extra={() =>< Image source = {{uri:'https://cdn3.iconfinder.com/data/icons/iconic-1/32/check_alt-128.png'}}/>}
+                        extra={< Image source = {checkedicon}/>}
                         thumb="http://7xqi6y.com1.z0.glb.clouddn.com/qianbao.png">
                         线下支付
                     </List.Item>
@@ -131,7 +133,7 @@ class ChargeCard extends Component {
                         style={[
                         styles.moneycontainer, {
                             flex: 1,
-                            backgroundColor: '#D5002F'
+                            backgroundColor: '#c7003a'
                         }
                     ]}>
                         <TouchableOpacity
@@ -183,7 +185,7 @@ const styles = StyleSheet.create({
     },
     money: {
         marginLeft: 0,
-        color: '#D5002F'
+        color: '#c7003a'
     }
 });
 const mapDispatchToProps = dispatch => bindActionCreators({

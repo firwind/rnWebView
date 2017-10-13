@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         marginBottom:10
     },
     text2:{
-        fontSize:16,
+        fontSize:14,
         color:'white',
         backgroundColor:'transparent',
         marginBottom:5

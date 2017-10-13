@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     messagetext: {
-        color: '#D5002F'
+        color: '#c7003a'
     },
     contentCenter: {
         justifyContent: 'center',

@@ -15,7 +15,7 @@ import { getText, getJSON, postJSON } from '../network';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeProgress } from '../redux/Actions';
-import Qianbao from '../images/qianbao.png';
+import Qianbao from '../images/shuizhanicon.png';
 
 
 const { width, height } =Dimensions.get('window');
@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
         height:25,
         width:50,
         lineHeight:20,
+        fontSize:12,
         
     },
     textState1:{
@@ -209,21 +210,22 @@ const styles = StyleSheet.create({
         height:25,
         width:50,
         lineHeight:20,
-        
+        fontSize:12,
     },
     text1:{
         color:'gray',
-        fontSize:18,
-        backgroundColor:'transparent'
+        fontSize:14,
+        backgroundColor:'transparent',
+        marginTop:5
     },
     text2:{
         color:'gray',
-        fontSize:16,
+        fontSize:12,
         backgroundColor:'transparent'
     },
     text3:{
         color:'red',
-        fontSize:16,
+        fontSize:12,
         backgroundColor:'transparent',
         marginLeft:10
     }

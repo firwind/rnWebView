@@ -13,7 +13,7 @@ import ChargeCard from './ChargeCard';
 import CardDetail from './CardDetail';
 
 
-const NavColor = '#D5002F';
+const NavColor = '#c7003a';
 export const NavBarConfig = {
     headerStyle: { backgroundColor: NavColor },
     headerTitleStyle: { color: 'white',alignSelf:'center' },
@@ -71,7 +71,7 @@ const Routes = {
         description: 'MangeMember',
         screen: MangeMember,
         navigationOptions: {
-            title: '会员管理',
+            title: '打水记录',
             ...NavBarConfig,
         }
     },
