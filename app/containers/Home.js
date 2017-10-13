@@ -1,6 +1,14 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image,Dimensions } from 'react-native';
+import { 
+    View, 
+    Text, 
+    StyleSheet, 
+    TouchableOpacity, 
+    Image,
+    Dimensions,
+    BackHandler 
+} from 'react-native';
 import { NavBarConfig } from './controllers';
 import MineIcon from '../images/mine.png';
 import EyeIcon from '../images/eye.png';
@@ -69,7 +77,12 @@ class home extends Component {
         todayCards: params.todayCardNum,
         waterStation: params.dispenserNum,
     });
-    
+    BackHandler.addEventListener('hardwareBackPress', function() {
+        console.log('====================================');
+        console.log();
+        console.log('====================================');
+        return true;
+       });
    }
    itemClick = (item) => {
     const { navigation } = this.props;

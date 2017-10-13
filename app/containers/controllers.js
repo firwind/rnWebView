@@ -1,3 +1,5 @@
+import React from 'react';
+import { TouchableOpacity,Text } from 'react-native';
 import ApplyCard from './ApplyCard';
 import Scanner from './Scanner';
 import Mine from './Mine/index';
@@ -18,6 +20,13 @@ export const NavBarConfig = {
     headerTintColor: 'white',
     tabBarVisible: false,
     headerBackTitle: null,
+    headerRight: (
+        <TouchableOpacity
+            style = {{height:44,width:40,justifyContent:'center',alignItems:'center'}}>
+            <Text style={{width:40, height:20, color:'white'}}></Text>
+        </TouchableOpacity>
+    ),
+
 };
 
 const Routes = {

@@ -73,7 +73,7 @@ class mrouter extends Component {
     }
     render() {
         return (
-            <View style={{ width,height }}>
+            <View style={{ flex:1 }}>
                 <HomeRouter />
                 {
                     this.props.progressHud ?  <ProgressHud /> : null

@@ -1,6 +1,6 @@
 //import liraries
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity,AsyncStorage} from 'react-native';
 
 // create a component
 class Mine extends Component {
@@ -34,6 +34,9 @@ class Mine extends Component {
     onBack = () => {
         const { navigation } = this.props;
         navigation.navigate('Main');
+        AsyncStorage.setItem('name','',null);
+        AsyncStorage.setItem('pwd','',null);
+        AsyncStorage.setItem('id','',null);
     }
     render() {
         return (
