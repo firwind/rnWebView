@@ -69,14 +69,14 @@ class Records extends Component {
   };
  //加载更多
   handleLoadMore = () => {
-    // this.setState(
-    //   {
-    //     page: this.state.page + 1
-    //   },
-    //   () => {
-    //     this.fethData();
-    //   }
-    // );
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => {
+        this.fethData();
+      }
+    );
   };
  
   renderSeparator = () => {

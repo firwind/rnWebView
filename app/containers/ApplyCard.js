@@ -120,20 +120,20 @@ class ApplyCard extends Component {
                         onChange={(value)=>this.setState({cardNum:value})}
                         >
                         <Image source={cardcode} style={{height:18,width:18}} resizeMode='contain' />
-                        </InputItem>
+                    </InputItem>
                     <InputItem 
                         placeholder="输入姓名，如张三" 
                         value={this.state.nameStr} 
                         onChange={(value)=>this.setState({nameStr:value})} >
                         <Image source={user} style={{height:18,width:18}} resizeMode='contain' />
-                        </InputItem>
+                    </InputItem>
                     <InputItem 
                         placeholder="输入用户手机号" 
                         type='number'
                         value={this.state.phoneStr} 
                         onChange={(value)=>this.setState({phoneStr:value})}>
                         <Image source={tel} style={{height:18,width:18}} resizeMode='contain' />
-                        </InputItem>
+                    </InputItem>
                 </List>
                 <List renderHeader={() => '充值金额'}>
                     <InputItem 

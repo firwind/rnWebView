@@ -7,6 +7,7 @@ import {
     TouchableOpacity, 
     Image,
     Dimensions,
+    AsyncStorage,
     BackHandler 
 } from 'react-native';
 import { NavBarConfig } from './controllers';
@@ -23,6 +24,10 @@ import Xinshou from '../images/xinshou1.png';
 import { Grid, Toast } from 'antd-mobile';
 import ManageStation from './ManageStattion';
 import MangeMember from './MangeMember';
+import { postJSON } from '../network';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeProgress } from '../redux/Actions';
 
 const { width, height } = Dimensions.get('window');
 
@@ -69,10 +74,28 @@ class home extends Component {
        };
        
    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('====================================')
+        console.log()
+        console.log('====================================')
+        return true;
+   }
+   onRefresh = () => {
+    AsyncStorage.getItem('id',(error,value)=>{
+        if(value.length>0){
+           this.fetchData(value);
+        }
+        else{
+         Toast.info('权限出错', 2, null, false);
+        }
+    });
+   }
    componentDidMount() {
     const { navigation } = this.props;
     const { state } = navigation;
     const { params } = state;
+
     this.setState({
         todayMoney: params.todayRecharge,
         todayBucket: params.todayFetch,
@@ -80,6 +103,16 @@ class home extends Component {
         waterStation: params.dispenserNum,
         localStorage: params.localStorage
     });
+
+    AsyncStorage.getItem('id',(error,value)=>{
+        if(value.length>0){
+           this.fetchData(value);
+        }
+        else{
+         Toast.info('权限出错', 2, null, false);
+        }
+    });
+
     BackHandler.addEventListener('hardwareBackPress', function() {
         console.log('====================================');
         console.log();
@@ -87,22 +120,52 @@ class home extends Component {
         return true;
        });
    }
+
+    async fetchData(value) {
+        this.props.changeProgress(true);
+        const url = `socialLogin/homePage`;
+        const params = `memberId=${value}`;
+        try {
+            const json = await postJSON(url,params);
+            this.props.changeProgress(false);
+            if(json.dispenserNum){
+                this.setState({
+                    todayMoney:json.todayRecharge,
+                    todayBucket:json.todayFetch,
+                    todayCards:json.todayCardNum,
+                    waterStation:json.dispenserNum
+                })
+            }
+            else {
+                Toast.info('请求接口失败!', 2, null, false);
+            }
+
+            console.log('====================================');
+            console.log(`请求接口数据${JSON.stringify(json)}`);
+            console.log('====================================');
+        } catch (error) {
+            Toast.info('网络错误！',2,null,false);
+            this.props.changeProgress(false);
+        }
+    }
+
    itemClick = (item) => {
     const { navigation } = this.props;
      switch (item.text) {
          case '办理水卡':
-         navigation.navigate('ApplyCard', {name: '办理水卡'});
+         navigation.navigate('ApplyCard', {name: '办理水卡',onRefresh:this.onRefresh});
              break;
-         case '在线充值':
-         navigation.navigate('ChargeCard', {name: '会员管理'});
+         case '水卡充值':
+         navigation.navigate('ChargeCard', {name: '水卡充值',onRefresh:this.onRefresh});
              break;
          case '水站管理':
-         navigation.navigate('ManageStation', {name: '水站管理'});
+         navigation.navigate('ManageStation', {name: '水站管理',onRefresh:this.onRefresh});
              break;
-         case '会员管理':
-         navigation.navigate('Records', {name: '会员管理'});
+         case '水卡管理':
+         navigation.navigate('Records', {name: '水卡管理',onRefresh:this.onRefresh});
          break;
          case '经营分析':
+         Toast.info('敬请期待!', 2, null, false); 
          break;
          case '水站商城':
          navigation.navigate('Shop', {user:this.state.localStorage});
@@ -117,13 +180,12 @@ class home extends Component {
             <View style={styles.container}>
                <View style={styles.topcontainer}>
                 <View style={styles.navtopbar}>
-                <TouchableOpacity onPress={()=>navigation.navigate('DrawerOpen', {name: '打开抽屉'})} style={styles.header}>
-                      <Image source={MineIcon} style={styles.mineIcon}/>
-                </TouchableOpacity>
-                  <Text style={styles.title}>
-                     水站管家
-                  </Text>
-                 
+                    <TouchableOpacity onPress={()=>navigation.navigate('DrawerOpen', {name: '打开抽屉'})} style={styles.header}>
+                        <Image source={MineIcon} style={styles.mineIcon}/>
+                    </TouchableOpacity>
+                    <Text style={styles.title}>
+                        水站管家
+                    </Text>               
                 </View>
                 <View style={styles.midcontainer}>
                    <Text style={{color:'white'}}>当天充值</Text>
@@ -246,5 +308,16 @@ const styles = StyleSheet.create({
     }
 });
 
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changeProgress
+},dispatch);
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        progressHud: state.progressHud,
+    };
+};
+
 //make this component available to the app
-export default home;
+export default connect(mapStateToProps, mapDispatchToProps)(home);
