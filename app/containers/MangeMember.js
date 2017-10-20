@@ -127,7 +127,7 @@ class MangeMember extends Component {
             renderItem={({ item }) => (
                 <List.Item  
                     multipleLine 
-                    extra={`打水量：${item.volume}L`}>
+                    extra={<Text style={{color:'lightgray'}}>`打水量：${item.volume}L`</Text>}>
                         <View>
                             <Text style={{fontSize:18}}>{item.alias.length>0?item.alias:item.cardNo}</Text>
                             <Text style={{color:'lightgray'}}>{item.fetchAt}</Text>

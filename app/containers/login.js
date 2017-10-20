@@ -37,6 +37,8 @@ class Login extends Component {
         };
 
     }
+    
+  
     componentDidMount() {
         AsyncStorage.getItem('name',(error,value)=>{
             if (value) {

@@ -69,10 +69,18 @@ class home extends Component {
        };
        
    }
+   shouldComponentUpdate(nextProps, nextState) {
+    console.log('====================================')
+    console.log()
+    console.log('====================================')
+    return true;
+   }
+   
    componentDidMount() {
     const { navigation } = this.props;
     const { state } = navigation;
     const { params } = state;
+    
     this.setState({
         todayMoney: params.todayRecharge,
         todayBucket: params.todayFetch,
@@ -87,23 +95,30 @@ class home extends Component {
         return true;
        });
    }
+   onRefresh = ()=>{
+     console.log('====================================');
+     console.log();
+     console.log('====================================');
+   }
    itemClick = (item) => {
     const { navigation } = this.props;
+     
      switch (item.text) {
          case '办理水卡':
-         navigation.navigate('ApplyCard', {name: '办理水卡'});
+         navigation.navigate('ApplyCard', {name: '办理水卡',onRefresh:this.onRefresh});
              break;
-         case '在线充值':
-         navigation.navigate('ChargeCard', {name: '会员管理'});
+         case '水卡充值':
+         navigation.navigate('ChargeCard', {name: '会员管理',onRefresh:this.onRefresh});
              break;
          case '水站管理':
-         navigation.navigate('ManageStation', {name: '水站管理'});
+         navigation.navigate('ManageStation', {name: '水站管理',onRefresh:this.onRefresh});
              break;
-         case '会员管理':
-         navigation.navigate('Records', {name: '会员管理'});
-         break;
+         case '水卡管理':
+         navigation.navigate('Records', {name: '会员管理',onRefresh:this.onRefresh});
+             break;
          case '经营分析':
-         break;
+         Toast.info('敬请期待');
+             break;
          case '水站商城':
          navigation.navigate('Shop', {user:this.state.localStorage});
             break;
@@ -185,7 +200,8 @@ class home extends Component {
 }
 
 home.navigationOptions = {
-    header: null
+    header: null,
+
 };
 // define your styles
 const styles = StyleSheet.create({
