@@ -85,21 +85,21 @@ class mrouter extends Component {
         return (
             <View style={{ flex:1 }}>
                 <HomeRouter 
-                    onNavigationStateChange={(prevState, currentState)=>{
-                        const currentScreen = this.getCurrentRouteName(currentState);
-                        const prevScreen = this.getCurrentRouteName(prevState);
-                        //保证是返回到首页
-                        if (currentScreen==='MainTab'&&prevScreen!='Main') {
-                            const route = prevState.routes[prevState.index];
-                            const { onRefresh } = route.params;
-                            if (onRefresh) {
-                                onRefresh();
-                            }
-                            console.log('====================================');
-                            console.log(currentScreen+prevScreen);
-                            console.log('====================================');
+                  onNavigationStateChange={(prevState, currentState)=>{
+                    const currentScreen = this.getCurrentRouteName(currentState);
+                    const prevScreen = this.getCurrentRouteName(prevState);
+                      //保证是返回到首页
+                      if (currentScreen==='MainTab'&&prevScreen!='Main') {
+                        const route = prevState.routes[prevState.index];
+                        const { onRefresh } = route.params;
+                        if (onRefresh) {
+                            onRefresh();
                         }
-                  }}
+                        console.log('====================================');
+                        console.log(currentScreen+prevScreen);
+                        console.log('====================================');
+                      }
+                  }}  
                 />
                 {
                     this.props.progressHud ?  <ProgressHud /> : null

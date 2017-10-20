@@ -52,8 +52,9 @@ class Shop extends Component {
         return (
             <View style={styles.container} >
                  <WebView
-                   
+                    ref={(web)=>{this.web=web}}
                     injectedJavaScript = {this.state.jsStr}
+                    onLoad={()=>{this.web.injectJavaScript(this.state.jsStr)}}
                     automaticallyAdjustContentInsets={true}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}

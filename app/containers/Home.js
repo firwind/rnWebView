@@ -95,7 +95,6 @@ class home extends Component {
     const { navigation } = this.props;
     const { state } = navigation;
     const { params } = state;
-
     this.setState({
         todayMoney: params.todayRecharge,
         todayBucket: params.todayFetch,
@@ -151,6 +150,7 @@ class home extends Component {
 
    itemClick = (item) => {
     const { navigation } = this.props;
+     
      switch (item.text) {
          case '办理水卡':
          navigation.navigate('ApplyCard', {name: '办理水卡',onRefresh:this.onRefresh});
@@ -247,7 +247,8 @@ class home extends Component {
 }
 
 home.navigationOptions = {
-    header: null
+    header: null,
+
 };
 // define your styles
 const styles = StyleSheet.create({
