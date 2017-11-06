@@ -8,7 +8,7 @@ import {
        Dimensions,
        Image,
        TouchableOpacity,
-       AsyncStorage
+       AsyncStorage,
 } from 'react-native';
 import { Toast } from 'antd-mobile';
 import { getText, getJSON, postJSON } from '../network';
@@ -52,8 +52,10 @@ class ManageStation extends Component {
         console.log( msg, data );
         //收到签收成功之后的通知，刷新界面
         this.fethData(memberId);
+
        }
     componentDidMount() {
+       
       var token = PubSub.subscribe( 'PublishMessage', this.mySubcriber );
        AsyncStorage.getItem('id',(error,value)=>{
            if(value.length>0){
