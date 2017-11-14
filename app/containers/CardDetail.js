@@ -1,12 +1,13 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet,Dimensions } from 'react-native';
+import { View, Text, StyleSheet,Dimensions, TouchableOpacity } from 'react-native';
 import { List } from 'antd-mobile';
 import { Toast } from 'antd-mobile';
 import { getText, getJSON, postJSON } from '../network';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeProgress , onClick} from '../redux/Actions';
+import mPubSub from 'pubsub-js';
 
 const {width,height} = Dimensions.get('window');
 // create a component
@@ -21,7 +22,17 @@ class CardDetail extends Component {
             balance:''
             
         };
+        this.props.navigation.setParams({
+            navigatePress:this.navigatePress
+        });
     }
+
+    navigatePress = () => {
+        const { navigation } = this.props;
+        navigation.navigate('EditCard', {id: this.state.cardId}); 
+    }
+
+
     mPress = ()=>{
         const { navigation } = this.props;
         navigation.navigate('MangeMember', {id: this.state.cardId,type:1});  
@@ -31,6 +42,9 @@ class CardDetail extends Component {
         const { state } = navigation;
         const { params } = state;
         this.fethData(params.id);
+        PubSub.subscribe( 'ReloadItem', () => this.fethData(params.id) );
+    }
+    componentWillReceiveProps() {
     }
     async fethData(value) {
         this.props.changeProgress(true);

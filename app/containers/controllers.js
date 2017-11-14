@@ -11,6 +11,7 @@ import Getpassword from './Getpassword';
 import Records from './Records';
 import ChargeCard from './ChargeCard';
 import CardDetail from './CardDetail';
+import EditCard from './EditCard';
 import Shop from './Shop';
 
 
@@ -44,10 +45,17 @@ const Routes = {
         name: 'CardDetail',
         description: 'CardDetail',
         screen: CardDetail,
-        navigationOptions: {
+        navigationOptions: ({ navigation }) => ({
             title: '水卡信息',
             ...NavBarConfig,
-        }
+            headerRight:(
+                <TouchableOpacity
+                    style = {{height:44,width:40,justifyContent:'center',alignItems:'center'}}
+                    onPress={navigation.state.params?navigation.state.params.navigatePress:null}>
+                    <Text style={{width:40, height:20, color:'white'}}>编辑</Text>
+                </TouchableOpacity>
+            )
+        }),
     },
     ChargeCard: {
         name: 'ChargeCard',
@@ -138,6 +146,15 @@ const Routes = {
             ...NavBarConfig,
         }
     },
+    EditCard: {
+        name: 'EditCard',
+        description: 'EditCard',
+        screen: EditCard,
+        navigationOptions: {
+            title: '编辑',
+            ...NavBarConfig,
+        }
+    }
 };
 
 export default Routes;

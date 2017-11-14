@@ -4,6 +4,7 @@ import {getJSON} from '../network/index';
 import {changeProgress, onClick} from '../redux/Actions';
 import { List } from 'antd-mobile';
 import CardDetail from './CardDetail';
+import mPubSub from 'pubsub-js';
 
 const {width,height} = Dimensions.get('window');
 
@@ -31,6 +32,18 @@ class Records extends Component {
          Toast.info('权限出错', 2, null, false);
         }
     });
+
+    PubSub.subscribe( 'ReloadItem', () => {
+      this.setState(
+      {
+        page: 1,
+        seed: this.state.seed + 1,
+        refreshing: true
+      },
+      () => {
+        this.fethData();
+      }
+    )});
      
   }
   async fethData() {

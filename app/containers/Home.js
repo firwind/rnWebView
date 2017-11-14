@@ -248,7 +248,7 @@ class home extends Component {
 
 home.navigationOptions = {
     header: null,
-
+    
 };
 // define your styles
 const styles = StyleSheet.create({
