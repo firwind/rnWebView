@@ -18,7 +18,8 @@ class Records extends Component {
       page: 1,
       seed: 1,
       error: null,
-      refreshing: false
+      refreshing: false,
+      loadingMore: false
     };
   }
 
@@ -56,7 +57,8 @@ class Records extends Component {
             this.setState({
                 data: page === 1 ? json.cardList : [...this.state.data, ...json.cardList],
                 refreshing: false,
-                loading: false
+                loading: false,
+                loadingMore: false
             });
          }
          else{
@@ -82,8 +84,10 @@ class Records extends Component {
   };
  //加载更多
   handleLoadMore = () => {
+    if (this.state.loadingMore) return;
     this.setState(
       {
+        loadingMore: true,
         page: this.state.page + 1
       },
       () => {
