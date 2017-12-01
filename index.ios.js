@@ -5,10 +5,7 @@
  */
 
 import React, {Component} from 'react';
-import {AppRegistry, View, Text} from 'react-native';
-import Home from './app/containers/Home';
-import Router from './app/containers/router';
-import {Provider} from 'react-redux';
+import {AppRegistry} from 'react-native';
 import store from './app/redux/Store';
 // create a component
 class LongSheng extends Component {
