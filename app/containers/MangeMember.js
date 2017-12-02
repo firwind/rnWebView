@@ -3,7 +3,6 @@ import { View, Text, FlatList, ActivityIndicator, AsyncStorage,Dimensions} from 
 import {getJSON} from '../network/index';
 import {changeProgress} from '../redux/Actions';
 import { List } from 'antd-mobile';
-
 const {width,height} = Dimensions.get('window');
 
 var merid = '';
@@ -16,7 +15,8 @@ class MangeMember extends Component {
       page: 1,
       seed: 1,
       error: null,
-      refreshing: false
+      refreshing: false,
+      loadingMore: false
     };
   }
 
@@ -42,14 +42,15 @@ class MangeMember extends Component {
     }
     this.setState({ loading: true });
     const { page, seed } = this.state;
-    const url = `socialCard/fetchRecord?${mparams}=${merid}&pageIndex=${this.state.page}&pageSize=10`;
+    const url = `socialCard/fetchRecord?${mparams}=${params.id}&pageIndex=${this.state.page}&pageSize=25`;
      try {
         const json = await getJSON(url);
          if (json.success) {
             this.setState({
                 data: page === 1 ? json.recordList : [...this.state.data, ...json.recordList],
                 refreshing: false,
-                loading: false
+                loading: false,
+                loadingMore: false
             });
          }
          else{
@@ -75,14 +76,16 @@ class MangeMember extends Component {
   };
  //加载更多
   handleLoadMore = () => {
-    // this.setState(
-    //   {
-    //     page: this.state.page + 1
-    //   },
-    //   () => {
-    //     this.fethData();
-    //   }
-    // );
+    if (this.state.loadingMore) return;
+    this.setState(
+      {
+        loadingMore: true,
+        page: this.state.page + 1
+      },
+      () => {
+        this.fethData();
+      }
+      );
   };
 
   renderSeparator = () => {

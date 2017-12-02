@@ -3892,6 +3892,16 @@ react-native-drawer-layout@1.3.2, react-native-drawer-layout@~1.3.0:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
+react-native-gifted-listview@^0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/react-native-gifted-listview/-/react-native-gifted-listview-0.0.15.tgz#c92b5b7b32cea7705b727ab4bc199751379dce07"
+  dependencies:
+    react-native-gifted-spinner "^0.0.4"
+
+react-native-gifted-spinner@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-gifted-spinner/-/react-native-gifted-spinner-0.0.4.tgz#32652b5a60423f14719a1c3125613299af0995f2"
+
 react-native-keyboard-manager@^4.0.13-3:
   version "4.0.13-3"
   resolved "https://registry.yarnpkg.com/react-native-keyboard-manager/-/react-native-keyboard-manager-4.0.13-3.tgz#e5567cc90aa5dce0eea89054c99db98caaaab4a0"
