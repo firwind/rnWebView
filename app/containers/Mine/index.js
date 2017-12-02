@@ -1,6 +1,7 @@
 //import liraries
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity,AsyncStorage} from 'react-native';
+import { List } from 'antd-mobile';
 
 // create a component
 class Mine extends Component {
@@ -16,6 +17,11 @@ class Mine extends Component {
             photoUrl:''
         };
         
+    }
+    goJiFen = ()=>{
+        const { navigation } = this.props;
+        navigation.navigate('SocialShare');
+       
     }
     componentDidMount() {
         const { navigation } = this.props;
@@ -90,12 +96,19 @@ class Mine extends Component {
                         </View>
                     </View>
                 </View>
+                <List>
+                    <List.Item arrow='horizontal' onClick={()=>{this.goJiFen()}}>
+                         推荐好友赚积分
+                   </List.Item>
+                </List>
                 <View
                     style={[
                     styles.container, {
                         flex: 2
                     }
-                ]}></View>
+                ]}>
+               
+                </View>
                 <TouchableOpacity style={styles.button} onPress={()=>{this.onBack()}}>
                     <Text style={styles.buttontext}>退出</Text>
                 </TouchableOpacity>

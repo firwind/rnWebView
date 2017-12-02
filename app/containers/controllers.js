@@ -13,6 +13,7 @@ import ChargeCard from './ChargeCard';
 import CardDetail from './CardDetail';
 import EditCard from './EditCard';
 import Shop from './Shop';
+import SocialShare from './SocialShare';
 
 
 const NavColor = '#c7003a';
@@ -38,6 +39,15 @@ const Routes = {
         screen: Shop,
         navigationOptions: {
             title: '水站商城',
+            ...NavBarConfig,
+        }
+    },
+    SocialShare: {
+        name: 'SocialShare',
+        description: 'SocialShare',
+        screen: SocialShare,
+        navigationOptions: {
+            title: '好友推荐',
             ...NavBarConfig,
         }
     },
