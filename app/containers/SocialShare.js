@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground,AsyncStorage, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground,AsyncStorage, Dimensions } from 'react-native';
 import BeiJing from '../images/beijing.png';
 import { Toast } from 'antd-mobile';
 import QRCode from 'react-native-qrcode';
@@ -21,7 +21,9 @@ class SocialShare extends Component {
         };
     }
     
-    
+    onPress = (type)=>{
+
+    }
     componentDidMount() {
         AsyncStorage.getItem('id',(error,value)=>{
             if(value.length>0){
@@ -40,23 +42,24 @@ class SocialShare extends Component {
                 <View style={{flex: 1,alignItems: 'center'}}>
                     <QRCode
                         value={this.state.text}
-                        size={150}
+                        size={0.2*height}
                         bgColor='black'
                         fgColor='white'/>
                     <Text style={{margin: 10,backgroundColor: 'transparent'}}>扫一扫</Text>
                     <View style={{height:100,width:width,backgroundColor:'transparent',flexDirection:'row',justifyContent:'space-around'}}>
-                        <View style={styles.contentCenter}>
+                        <TouchableOpacity style={styles.contentCenter} onPress={()=>this.onPress('1')}>
                             <Image source={Weixin} style={{width: 60,height: 60}}/>
                             <Text style={styles.messagetext}>微信</Text>
-                        </View>
-                        <View style={styles.contentCenter}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.contentCenter} onPress={()=>this.onPress('2')}>
                             <Image source={Pengyou} style={{width: 60,height: 60}} />
                             <Text style={styles.messagetext}>朋友圈</Text>
-                        </View>
-                        <View style={styles.contentCenter}>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity style={styles.contentCenter} onPress={()=>this.onPress('3')}>
                             <Image source={QQImage} style={{width: 60,height: 60}} />
                             <Text style={styles.messagetext}>QQ</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </ImageBackground>
