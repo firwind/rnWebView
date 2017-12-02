@@ -2,34 +2,40 @@ import React, { Component } from "react";
 import { View, Text, FlatList, ActivityIndicator, AsyncStorage,Dimensions} from "react-native";
 import {getJSON} from '../network/index';
 import {changeProgress} from '../redux/Actions';
-import { List } from 'antd-mobile';
+import { List,ListView,Toast} from 'antd-mobile';
 const {width,height} = Dimensions.get('window');
-
+var mdata = [];
 var merid = '';
+var data = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 class MangeMember extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       loading: false,
-      data: [],
+      dataSource:data.cloneWithRows([]),
       page: 1,
       seed: 1,
       error: null,
       refreshing: false,
       loadingMore: false
     };
+  //   this.setState({
+  //     dataSource: data.cloneWithRows(),
+  // });
   }
 
   componentDidMount() {
-    AsyncStorage.getItem('id',(error,value)=>{
-        if(value.length>0){
-           merid=value;
-           this.fethData();
-        }
-        else{
-         Toast.info('权限出错', 2, null, false);
-        }
-    });
+    
+    // AsyncStorage.getItem('id',(error,value)=>{
+    //     if(value.length>0){
+    //        merid=value;
+            this.fethData();
+    //     }
+    //     else{
+    //      Toast.info('权限出错', 2, null, false);
+    //     }
+   // });
      
   }
   async fethData() {
@@ -42,20 +48,19 @@ class MangeMember extends Component {
     }
     this.setState({ loading: true });
     const { page, seed } = this.state;
-    const url = `socialCard/fetchRecord?${mparams}=${params.id}&pageIndex=${this.state.page}&pageSize=25`;
-     try {
+    const url = `socialCard/fetchRecord?${mparams}=${params.id}&pageIndex=${this.state.page}&pageSize=10`;
+    
+    try {
+
         const json = await getJSON(url);
          if (json.success) {
+            mdata = page === 1 ? json.recordList : [...mdata, ...json.recordList]
             this.setState({
-                data: page === 1 ? json.recordList : [...this.state.data, ...json.recordList],
-                refreshing: false,
-                loading: false,
-                loadingMore: false
-            });
+              dataSource:data.cloneWithRows(mdata),
+              loadingMore:false
+            }); 
          }
-         else{
-              Toast.info('请求接口失败!', 2, null, false);
-         }
+         
      } catch (error) {
        Toast.info('网络错误!', 2, null, false);
        
@@ -85,9 +90,9 @@ class MangeMember extends Component {
       () => {
         this.fethData();
       }
-      );
+    );
   };
-
+ 
   renderSeparator = () => {
     return (
       <View
@@ -120,30 +125,27 @@ class MangeMember extends Component {
       </View>
     );
   };
-
   render() {
     return (
         <List style={{height,width}}>
-            <FlatList
-            style={{height,width}}
-            data={this.state.data}
-            renderItem={({ item }) => (
+            <ListView
+            style={{height:height,width}}
+            dataSource={this.state.dataSource}
+           
+            renderRow={(item) => (
                 <List.Item  
                     multipleLine 
                     extra={`打水量：${item.volume}L`}>
                         <View>
                             <Text style={{fontSize:18}}>{item.alias.length>0?item.alias:item.cardNo}</Text>
                             <Text style={{color:'lightgray'}}>{item.fetchAt}</Text>
+
                         </View>
                 </List.Item>
             )}
-            keyExtractor={item => item.cardId}
-            ListHeaderComponent={this.renderHeader}
-            ListFooterComponent={this.renderFooter}
-            onRefresh={this.handleRefresh}
-            refreshing={this.state.refreshing}
+            renderFooter={()=>this.renderFooter()}
             onEndReached={this.handleLoadMore}
-            onEndReachedThreshold={90}
+            onEndReachedThreshold={10}
             />
         </List>
     );
