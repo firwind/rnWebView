@@ -7,6 +7,7 @@ import QRCode from 'react-native-qrcode';
 import QQImage from '../images/qq.png';
 import Pengyou from '../images/pengyou.png';
 import Weixin from '../images/weixin.png';
+import * as WeChat from 'react-native-wechat';
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,10 +20,56 @@ class SocialShare extends Component {
         this.state = {
             text:''
         };
+      WeChat.registerApp('wx35f14e67f7ac19bc');
     }
     
     onPress = (type)=>{
-
+        this.share(type);
+    }
+    async share(type){
+        switch (type) {
+            case '1':
+                {
+                    try {
+                        let result = await WeChat.shareToSession({
+                          type: 'news',
+                          title: '送你300积分，快来领取吧！',
+                          description: '领取300积分，扫码免费喝健康好水，还有更多抽奖等你拿！',
+                          webpageUrl: this.state.text
+                        });
+                        console.log('share image url to time line successful:', result);
+                      } catch (e) {
+                        if (e instanceof WeChat.WechatError) {
+                          console.error(e.stack);
+                        } else {
+                          throw e;
+                        }
+                      }
+                }
+                break;
+            case '2':
+            {
+                try {
+                    let result = await WeChat.shareToTimeline({
+                      type: 'news',
+                      title: '送你300积分，快来领取吧！',
+                      description: '领取300积分，扫码免费喝健康好水，还有更多抽奖等你拿！',
+                      webpageUrl: this.state.text
+                    });
+                    console.log('share image url to time line successful:', result);
+                  } catch (e) {
+                    if (e instanceof WeChat.WechatError) {
+                      console.error(e.stack);
+                    } else {
+                      throw e;
+                    }
+                  }
+            }
+                break;
+            default:
+                break;
+        }
+       
     }
     componentDidMount() {
         AsyncStorage.getItem('id',(error,value)=>{
@@ -55,11 +102,10 @@ class SocialShare extends Component {
                             <Image source={Pengyou} style={{width: 60,height: 60}} />
                             <Text style={styles.messagetext}>朋友圈</Text>
                         </TouchableOpacity>
-                        
-                        <TouchableOpacity style={styles.contentCenter} onPress={()=>this.onPress('3')}>
+                        {/* <TouchableOpacity style={styles.contentCenter} onPress={()=>this.onPress('3')}>
                             <Image source={QQImage} style={{width: 60,height: 60}} />
                             <Text style={styles.messagetext}>QQ</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
             </ImageBackground>
