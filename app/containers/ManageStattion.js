@@ -74,7 +74,7 @@ class ManageStation extends Component {
          try {
             const json = await getJSON(url);
              this.props.changeProgress(false);
-             if (json.dispenserList) {
+             if (json.dispenserList!==undefined) {
                 this.setState({data:json.dispenserList})
              }
              else{

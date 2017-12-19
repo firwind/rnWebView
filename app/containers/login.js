@@ -67,7 +67,7 @@ class Login extends Component {
        try {
           const json = await postJSON(url,params);
            this.props.changeProgress(false);
-           if (json.dispenserNum) {
+           if (json.success) {
             AsyncStorage.setItem('name',this.state.nameStr,null);
             AsyncStorage.setItem('pwd',this.state.pwdStr,null);
             AsyncStorage.setItem('id',`${json.memberId}`,null);

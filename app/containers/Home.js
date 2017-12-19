@@ -127,7 +127,7 @@ class home extends Component {
         try {
             const json = await postJSON(url,params);
             this.props.changeProgress(false);
-            if(json.dispenserNum){
+            if(json.dispenserNum!==undefined){
                 this.setState({
                     todayMoney:json.todayRecharge,
                     todayBucket:json.todayFetch,
