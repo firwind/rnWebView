@@ -66,15 +66,15 @@ const HomeRouter = StackNavigator(
 class mrouter extends Component {
     getCurrentRouteName(navigationState) {
         if (!navigationState) {
-          return null;
+            return null;
         }
         const route = navigationState.routes[navigationState.index];
         // dive into nested navigators
         if (route.routes) {
-          return this.getCurrentRouteName(route);
+            return this.getCurrentRouteName(route);
         }
         return route.routeName;
-      }
+    }
     shouldComponentUpdate(nextProps, nextState) {
         if (this.props.progressHud !== nextProps.progressHud) {
             return true;
@@ -85,21 +85,21 @@ class mrouter extends Component {
         return (
             <View style={{ flex:1 }}>
                 <HomeRouter 
-                  onNavigationStateChange={(prevState, currentState)=>{
-                    const currentScreen = this.getCurrentRouteName(currentState);
-                    const prevScreen = this.getCurrentRouteName(prevState);
-                      //保证是返回到首页
-                      if (currentScreen==='MainTab'&&prevScreen!='Main') {
-                        const route = prevState.routes[prevState.index];
-                        const { onRefresh } = route.params;
-                        if (onRefresh) {
-                            onRefresh();
+                    onNavigationStateChange={(prevState, currentState)=>{
+                        const currentScreen = this.getCurrentRouteName(currentState);
+                        const prevScreen = this.getCurrentRouteName(prevState);
+                        //保证是返回到首页
+                        if (currentScreen==='MainTab'&&prevScreen!='Main') {
+                            const route = prevState.routes[prevState.index];
+                            const { onRefresh } = route.params;
+                            if (onRefresh) {
+                                onRefresh();
+                            }
+                            console.log('====================================');
+                            console.log(currentScreen+prevScreen);
+                            console.log('====================================');
                         }
-                        console.log('====================================');
-                        console.log(currentScreen+prevScreen);
-                        console.log('====================================');
-                      }
-                  }}  
+                    }}  
                 />
                 {
                     this.props.progressHud ?  <ProgressHud /> : null

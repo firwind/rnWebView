@@ -44,24 +44,24 @@ class Shop extends Component {
         const { state } = navigation;
         const { params } = state;
         this.state = {
-          jsStr:"window.localStorage.setItem('LnThirdUserInfo','" + params.user + "');"
+            jsStr:"window.localStorage.setItem('LnThirdUserInfo','" + params.user + "');"
         };
         
     }
     render() {
         return (
             <View style={styles.container} >
-                 <WebView
-                    ref={(web)=>{this.web=web}}
+                <WebView
+                    ref={(web)=>{this.web=web;}}
                     injectedJavaScript = {this.state.jsStr}
-                    onLoad={()=>{this.web.injectJavaScript(this.state.jsStr)}}
+                    onLoad={()=>{this.web.injectJavaScript(this.state.jsStr);}}
                     automaticallyAdjustContentInsets={true}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     decelerationRate='normal'
                     startInLoadingState={true}
                     style={styles.container}
-                    source={{uri: 'http://ln.rrs.com/APPh5/pages/lenong/Ln-thirdLogin.html'}}
+                    source={{uri: 'http://ln.rrsjk.com/APPh5/pages/lenong/Ln-thirdLogin.html'}}
                     scalesPageToFit={true}
                 />
             </View>
